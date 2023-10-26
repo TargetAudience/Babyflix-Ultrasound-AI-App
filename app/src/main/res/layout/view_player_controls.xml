@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.babyfilx.ui.screens.player.PlayerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/player_controls_root"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_controls"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{data.showControls ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/play_button"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:padding="15dp"
+                android:background="@drawable/play_background"
+                android:contentDescription="@null"
+                android:focusable="true"
+                android:src="@{data.isPlaying ? @drawable/pause_video : @drawable/play_video}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:max="@{data.seekBarMax}"
+            android:progress="@{data.seekBarProgress}"
+            android:progressDrawable="@drawable/seekbar_progress"
+            android:secondaryProgress="@{data.seekBarSecondaryProgress}"
+            android:thumb="@drawable/seekbar_thumb"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@id/guideline" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_end="50dp" />
+
+        <ImageView
+            android:id="@+id/play_button_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@{data.isPlaying ? @drawable/pause_video : @drawable/play_video}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/backword_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/backword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/play_button_view"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/forword_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="10dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/forword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/backword_view"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/volume_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/volume"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/forword_view"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_volume"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:max="@{data.volumeMax}"
+            android:layout_marginStart="-10dp"
+            android:progress="@{data.volume}"
+            android:progressDrawable="@drawable/seekbar_progress"
+            android:secondaryProgress="@{data.volume}"
+            android:thumb="@drawable/seekbar_thumb"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/volume_view"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/full_screen_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginEnd="20dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/full_screen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/screen_cast_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:visibility="@{data.seekBarVisible &amp;&amp; data.liveStream == false ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/screen_cast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

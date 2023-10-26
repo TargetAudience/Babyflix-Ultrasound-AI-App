@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "537235518123",
+    "project_id": "babyflix-d4f7c",
+    "storage_bucket": "babyflix-d4f7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537235518123:android:84e8ac602819c22c29fdee",
+        "android_client_info": {
+          "package_name": "com.babyflix.mobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537235518123-lrrt4aolnnksh8pugkr50c2n8ou19n2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.babyflix.mobileapp",
+            "certificate_hash": "ac8d4c38465e6e9017e7b3aecc3c8d2c1697278f"
+          }
+        },
+        {
+          "client_id": "537235518123-ne3m14a6uqm2kohlogik0b89qq7adku5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5Y-rEDpm1TynCmF49tz_v2XZa5svLlDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537235518123-ne3m14a6uqm2kohlogik0b89qq7adku5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,37 @@
+package com.babyfilx.data.models
+
+sealed class Screens(val root: String) {
+    object Splash : Screens("splash")
+    object OnBoard : Screens("onBoard")
+    object Login : Screens("login")
+    object Home : Screens("home")
+    object News : Screens("news")
+    object NewsDetails : Screens("news details")
+    object ForgotPassword : Screens("forgot")
+    object Register : Screens("register")
+    object Profile : Screens("profile")
+    object Setting : Screens("setting")
+    object Subscription : Screens("subscription")
+    object FotoMotoWeb : Screens("fotomoto")
+    object ChangePassword : Screens("change password")
+    object Details : Screens("details")
+    object Help : Screens("help")
+    object Reset : Screens("reset")
+    object VideoDetails : Screens("video_details")
+    object DeepLinking : Screens("deep_linking")
+    object SelectPlan : Screens("select plan")
+    object ImageSelection : Screens("image selection")
+    object EnhancedImage : Screens("enhanced image")
+    object Dashboard : Screens("dashboard")
+    object BottomBar : Screens("bottombar")
+    object Flix10K : Screens("flix10k")
+    object SignUp : Screens("signup")
+    object SignUpEmail : Screens("signupemail")
+    object SignUpMobile : Screens("signupmobile")
+    object SignUpPassword : Screens("signuppassword")
+    object SignUpClinic : Screens("signupclinic")
+    object EnhancementComplete : Screens("enhancement")
+    object ProcessingImage : Screens("processing")
+
+
+}

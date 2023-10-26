@@ -1,0 +1,225 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id "dagger.hilt.android.plugin"
+    id "kotlin-kapt"
+    id("com.google.devtools.ksp").version("1.6.10-1.0.4")
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id("kotlin-parcelize")
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    namespace 'com.babyflix.mobileapp'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.babyflix.mobileapp"
+        minSdk 24
+        targetSdk 33
+        versionCode 144
+        versionName "2.0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "access_key_id", "\"${properties.getProperty("access_key_id")}\""
+        buildConfigField "String", "secret_access_key", "\"${properties.getProperty("secret_access_key")}\""
+        buildConfigField "String", "pool_id", "\"${properties.getProperty("pool_id")}\""
+
+    }
+    lintOptions {
+        disable "Instantiatable"
+    }
+    buildTypes {
+        development {
+            //this is for QA
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+            buildConfigField "String", "BASE_URL", '"https://stage.babyflix.net/"'
+            buildConfigField "String", "aws", '"s3://testing-devops-ohio-uploadfiles/babyflix/"'
+
+        }
+        debug {
+//this is for staging
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+            // buildConfigField "String", "BASE_URL", '"https://stage.babyflix.net/"'
+            // buildConfigField "String", "bucket_name", '"testing-devops-ohio-uploadfiles"'
+            buildConfigField "String", "aws", '"s3://testing-devops-ohio-uploadfiles/babyflix/"'
+            buildConfigField "String", "BASE_URL", '"https://babyflix.net/"'
+            buildConfigField "String", "bucket_name", '"babyflix-user-bucket-prod"'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://babyflix.net/"'
+            buildConfigField "String", "aws", '"s3://testing-devops-ohio-uploadfiles/babyflix/"'
+            buildConfigField "String", "bucket_name", '"babyflix-user-bucket-prod"'
+        }
+
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+        dataBinding true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_ui_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+
+            def buildPrefix = "Babyflix_d_"
+            outputFileName = buildPrefix + "${variant.versionName}.apk"
+        }
+
+    }
+
+
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation "androidx.compose.ui:ui:$compose_ui_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    implementation 'androidx.compose.material:material:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.android.volley:volley:1.2.1'
+    testImplementation 'junit:junit:4.13.2'
+    implementation("androidx.appcompat:appcompat:1.6.0")
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    //tabLayout with viewpager 2
+    implementation "com.google.accompanist:accompanist-pager:0.12.0"
+
+    //hilt dependency
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+//hilt dependency injection
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    testImplementation "com.google.dagger:hilt-android-testing:2.38.1"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.38.1"
+
+    //retrofit
+    def retrofit = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+
+    //moshi json converter
+    def moshi = "1.13.0"
+    implementation("com.squareup.moshi:moshi-kotlin:$moshi")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
+
+    //interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+
+    //coil
+    implementation "io.coil-kt:coil-compose:2.2.2"
+
+    //for the preferences data store
+    implementation("androidx.datastore:datastore:1.1.0-alpha01")
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3'
+
+// this is for logging
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // Amplify
+    def amplify_version = "1.31.3"
+
+    implementation "com.amplifyframework:aws-storage-s3:$amplify_version"
+    implementation "com.amplifyframework:aws-auth-cognito:$amplify_version"
+
+
+//IVS Player
+    implementation 'com.amazonaws:ivs-player:1.14.0'
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.2'
+
+    def work_version = "2.7.1"
+    // Kotlin + coroutines
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+//Video Compressor
+    implementation 'com.github.AbedElazizShe:LightCompressor:1.2.3'
+
+    //Image compress
+    implementation 'id.zelory:compressor:3.0.1'
+
+    //Paging 3.0
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha10'
+
+    def room_version = "2.5.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+  /*  def billing_version = "5.1.0"
+
+    implementation("com.android.billingclient:billing-ktx:$billing_version")
+*/
+
+    implementation "io.coil-kt:coil-compose:2.2.2"
+
+    implementation 'com.android.billingclient:billing:6.0.0'
+    implementation 'com.android.billingclient:billing-ktx:6.0.0'
+    implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'com.google.guava:guava:27.0.1-android'
+
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+
+    implementation "io.coil-kt:coil-compose:2.1.0"
+    implementation "io.coil-kt:coil-gif:2.1.0"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.20.0"
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+
+
+
+}

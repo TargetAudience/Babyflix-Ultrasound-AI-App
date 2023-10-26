@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.babyflix.mobileapp",
+    "sha256_cert_fingerprints":[
+      "13:35:8B:EF:70:A9:79:46:56:21:4B:07:97:D0:1F:3D:3A:49:45:45:64:1C:3E:70:ED:ED:1B:A8:43:24:41:83",
+      "E3:AB:19:A3:B7:5A:7D:07:43:E9:76:A9:13:1A:76:E7:67:3E:A1:4B:74:A9:E2:C3:11:7A:D0:4E:7B:79:8A:5F"
+    ]
+  }
+}]

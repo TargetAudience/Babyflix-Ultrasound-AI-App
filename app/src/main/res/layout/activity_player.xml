@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.babyfilx.ui.screens.player.PlayerViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:keepScreenOn="true"
+        tools:context=".activities.MainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/videoPlayer"
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/colorBlack"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/player_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <SurfaceView
+                    android:id="@+id/surface_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <ProgressBar
+                    android:id="@+id/pb_buffering"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:scaleType="center"
+                    android:visibility="@{data.buffering ? View.VISIBLE : View.GONE}"
+                    tools:visibility="visible" />
+            </FrameLayout>
+
+            <include android:id="@+id/controllers" layout="@layout/view_player_controls"
+                app:data="@{data}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/videoPlayer">
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/copyLinkLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp">
+                
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/copyLink"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/video_copy_url"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy_link"
+                    app:layout_constraintTop_toBottomOf="@id/copyLink"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/medium_text_size"
+                    android:fontFamily="@font/nunito_regular"/>
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/shareVideoLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/copyLinkLayout"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/shareVideo"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/video_share"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    app:layout_constraintTop_toBottomOf="@id/shareVideo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/medium_text_size"
+                    android:fontFamily="@font/nunito_regular"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/videoRv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:spanCount="2"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:backgroundTint="@color/colorPrimary"
+            tools:listitem="@layout/rv_video_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonLayout"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

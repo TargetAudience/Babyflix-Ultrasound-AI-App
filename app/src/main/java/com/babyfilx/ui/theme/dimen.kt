@@ -1,0 +1,87 @@
+package com.babyfilx.ui.theme
+
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+//for text size
+val sp25=25.sp
+val sp30=30.sp
+val sp11=11.sp
+val sp9=9.sp
+val sp13=13.sp
+val sp12=12.sp
+val sp14=14.sp
+val sp16=16.sp
+val sp15=15.sp
+val sp17=17.sp
+val sp18=18.sp
+val sp20=20.sp
+val sp22=22.sp
+val sp24=24.sp
+val sp28=28.sp
+// for margin, padding in dps
+
+val dp4=4.dp
+val dp0=0.dp
+val dp1=1.dp
+val dp2=2.dp
+val dp6=6.dp
+val dp7=7.dp
+val dp8=8.dp
+val dp9=9.dp
+val dp10=10.dp
+val dp12=12.dp
+val dp13=13.dp
+val dp14=14.dp
+val dp14_5=14.5.dp
+val dp15=15.dp
+val dp16=16.dp
+val dp17=17.dp
+val dp18=18.dp
+val dp20=20.dp
+val dp21=21.dp
+val dp23=23.dp
+val dp24=24.dp
+val dp25=25.dp
+val dp26=26.dp
+val dp28=28.dp
+val dp30=30.dp
+val dp33=33.dp
+val dp35=35.dp
+val dp40=40.dp
+val dp41=41.dp
+val dp44=44.dp
+val dp48=48.dp
+val dp50=50.dp
+val dp53=53.dp
+val dp54=54.dp
+val dp57=57.dp
+val dp5=5.dp
+val dp60=60.dp
+val dp65=65.dp
+val dp70=70.dp
+val dp71_5=70.5.dp
+val dp79=79.dp
+val dp80=80.dp
+val dp81=81.dp
+val dp92=92.dp
+val dp100=100.dp
+val dp104=104.dp
+val dp120=120.dp
+val dp90=90.dp
+val dp97=97.dp
+val dp36=36.dp
+val dp163=163.dp
+val dp168=168.dp
+val dp188=188.dp
+val dp200=200.dp
+val dp223=223.dp
+val dp241=241.dp
+val dp250=250.dp
+val dp260=260.dp
+val dp290=290.dp
+val dp376=376.dp
+val dp399=399.dp
+
+// for icons size
+
+val icon160=160.dp
